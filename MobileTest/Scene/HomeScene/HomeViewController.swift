@@ -25,6 +25,8 @@ class HomeViewController: UIViewController {
     private var data: [VideoModel] = []
     private let viewModel: HomeViewModel = HomeViewModelImp()
 
+    private let refreshControl = UIRefreshControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .dark
@@ -36,7 +38,8 @@ class HomeViewController: UIViewController {
 
     @IBAction func didTapCancel(_ sender: UIButton) {
         searchBar.text?.removeAll()
-        input.send(.fetchData)
+        searchBar.resignFirstResponder()
+        input.send(.fetchData(isForce: true))
     }
 }
 
@@ -50,10 +53,6 @@ extension HomeViewController {
     }
 
     private func setupSearchBar() {
-        if let searchTextField = searchBar.value(forKey: Constants.searchFieldKey) as? UITextField,
-           let clearButton = searchTextField.value(forKey: Constants.clearButtonKey) as? UIButton {
-             clearButton.addTarget(self, action: #selector(didTapClearBtn), for: .touchUpInside)
-        }
         searchBar.barTintColor = UIColor.white
         searchBar.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
     }
@@ -64,37 +63,50 @@ extension HomeViewController {
             .sink { [weak self] events in
                 guard let self = self else { return }
                 switch events {
-                case .fetchDataSuccess(let data):
+                case .fetchDataSuccess(let data, let isForce):
+                    if isForce {
+                        self.tableView.scrollToTop(animated: false)
+                    }
                     self.data = data
                     self.tableView.reloadData()
                     self.cancelButton.isHidden = true
-                case .fetchSearchDataSuccess(let data):
+                case .fetchSearchDataSuccess(let data, let isForce):
+                    if isForce {
+                        self.tableView.scrollToTop(animated: false)
+                    }
                     self.data = data
                     self.tableView.reloadData()
                     self.cancelButton.isHidden = false
                 case .showError(let error):
-                    ProgressHUD.showError(error)
+                    ProgressHUD.showError(error, delay: 3)
                 case .showLoading(let isLoading):
                     if isLoading {
-                        ProgressHUD.show()
+                        ProgressHUD.show(interaction: false)
                     } else {
                         ProgressHUD.dismiss()
+                        self.refreshControl.endRefreshing()
                     }
                 }
             }.store(in: &cancellables)
-        input.send(.fetchData)
+        input.send(.fetchData(isForce: false))
     }
 
     private func setupTableView() {
         tableView.register(R.nib.homeTableViewCell)
+        setupRefreshControl()
+    }
+
+    private func setupRefreshControl() {
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
 
     @objc private func didTap() {
         view.endEditing(true)
     }
 
-    @objc private func didTapClearBtn() {
-        input.send(.fetchData)
+    @objc private func refreshData() {
+        input.send(.fetchData(isForce: true))
     }
 }
 
@@ -119,6 +131,12 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == (data.count) - 1 {
+            input.send(.loadMore)
+        }
     }
 }
 

@@ -49,6 +49,7 @@ struct VideoModel: Codable {
     var viewCount: String?
     var id: String?
     var channelIcon: String?
+    var pageToken: String?
 }
 
 struct VideoThumbnail: Codable {

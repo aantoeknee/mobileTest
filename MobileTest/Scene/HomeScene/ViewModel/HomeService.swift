@@ -18,7 +18,7 @@ protocol HomeService {
 class HomeServiceImp: HomeService {
 
     enum Constants {
-        static let apiKey = "AIzaSyCLu528PtDijgVm24NX4XoHQK41aQxavyg"
+        static let apiKey = "AIzaSyDdY5eQGQGZg6EZ8RkD-IaKaYLaRIBvrOc"
     }
 
     private var cancellables: Set<AnyCancellable> = []
@@ -41,6 +41,7 @@ class HomeServiceImp: HomeService {
                     var data = $0.data
                     data.viewCount = $0.statistics?.viewCount
                     data.id = $0.id
+                    data.pageToken = response.nextPageToken
                     return data
                 }
                 promise(.success(videos))
@@ -65,6 +66,7 @@ class HomeServiceImp: HomeService {
                         var data = $0.data
                         data.viewCount = $0.statistics?.viewCount
                         data.id = $0.id
+                        data.pageToken = response.nextPageToken
                         return data
                     }
                     promise(.success(videos))

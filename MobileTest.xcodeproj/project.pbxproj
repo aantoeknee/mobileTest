@@ -31,6 +31,7 @@
 		ABC07A1A2AC33FDB008D4001 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A192AC33FDB008D4001 /* StringExtensions.swift */; };
 		ABC07A1C2AC36476008D4001 /* NumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */; };
 		ABC07A1F2AC36505008D4001 /* HomeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A1E2AC36505008D4001 /* HomeCellViewModel.swift */; };
+		ABC07A212AC37E02008D4001 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		ABC07A192AC33FDB008D4001 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberExtensions.swift; sourceTree = "<group>"; };
 		ABC07A1E2AC36505008D4001 /* HomeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellViewModel.swift; sourceTree = "<group>"; };
+		ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
 		E4F339A9BF71FB3BDA7CDBD4 /* Pods_MobileTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,6 +158,7 @@
 			children = (
 				ABC07A122AC32E3C008D4001 /* URLRequestExtensions.swift */,
 				ABC07A192AC33FDB008D4001 /* StringExtensions.swift */,
+				ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */,
 				ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */,
 			);
 			path = Extensions;
@@ -373,6 +376,7 @@
 				ABC079FA2AC3231C008D4001 /* HomeViewController.swift in Sources */,
 				ABC07A1F2AC36505008D4001 /* HomeCellViewModel.swift in Sources */,
 				AB2B36FC2AC31DA10043F0BA /* AppDelegate.swift in Sources */,
+				ABC07A212AC37E02008D4001 /* UITableViewExtensions.swift in Sources */,
 				ABC07A0D2AC32CE5008D4001 /* Endpoints.swift in Sources */,
 				ABC07A1C2AC36476008D4001 /* NumberExtensions.swift in Sources */,
 				ABC07A112AC32DF5008D4001 /* CustomError.swift in Sources */,
