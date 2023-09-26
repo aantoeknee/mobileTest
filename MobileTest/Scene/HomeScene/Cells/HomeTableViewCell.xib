@@ -17,22 +17,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vmJ-lA-kbU">
-                        <rect key="frame" x="8" y="8" width="373" height="310"/>
+                        <rect key="frame" x="8" y="8" width="373" height="284"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jFY-9V-6pd">
-                                <rect key="frame" x="0.0" y="0.0" width="373" height="250"/>
+                                <rect key="frame" x="0.0" y="0.0" width="373" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="63D-d2-I0J"/>
+                                    <constraint firstAttribute="height" constant="200" id="63D-d2-I0J"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="83R-22-5Br">
-                                <rect key="frame" x="0.0" y="262" width="373" height="48"/>
+                                <rect key="frame" x="0.0" y="212" width="373" height="72"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twm-Vl-xUS">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="72"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jFO-r0-bGI">
-                                                <rect key="frame" x="2" y="4" width="40" height="40"/>
+                                                <rect key="frame" x="2" y="16" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="C3V-fv-iec"/>
                                                     <constraint firstAttribute="width" constant="40" id="R6H-Hc-5wM"/>
@@ -47,29 +47,29 @@
                                             <constraint firstItem="jFO-r0-bGI" firstAttribute="centerY" secondItem="twm-Vl-xUS" secondAttribute="centerY" id="svO-H0-Oua"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t1Y-qe-K3l">
-                                        <rect key="frame" x="56" y="0.0" width="317" height="48"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="t1Y-qe-K3l">
+                                        <rect key="frame" x="56" y="0.0" width="317" height="72"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Google - The Year in Search 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIV-CX-19J">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Google - The Year in Search 2017" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIV-CX-19J">
                                                 <rect key="frame" x="0.0" y="0.0" width="317" height="18"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Or5-c2-tOH">
-                                                <rect key="frame" x="0.0" y="18" width="317" height="30"/>
+                                                <rect key="frame" x="0.0" y="22" width="317" height="50"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RBn-x4-wIe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a50-UQ-fLl">
-                                                                <rect key="frame" x="0.0" y="0.0" width="39" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="39" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1M Views" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-9q-fyD">
-                                                                <rect key="frame" x="47" y="0.0" width="52" height="30"/>
+                                                                <rect key="frame" x="47" y="0.0" width="52" height="50"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>

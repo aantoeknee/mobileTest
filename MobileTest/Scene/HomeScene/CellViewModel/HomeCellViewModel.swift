@@ -33,7 +33,7 @@ class HomeCellViewModelImp: HomeCellViewModel {
 
     var viewCount: String? {
         guard let formattedString = Int(model?.viewCount ?? .empty)?.asFormattedString else { return .empty }
-        return formattedString + "views"
+        return formattedString + " views"
     }
 
     var thumbnail: URL? {
