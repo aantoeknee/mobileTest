@@ -159,9 +159,8 @@ extension HomeViewModelImp {
         if pageToken.isEmpty {
             self.output.send(.scrollToTop)
             output.send(.showLoading(true))
-        } else {
-            output.send(.showLoading(true, "Loading more..."))
         }
+        
         service.searchVideos(requestParam.generateParameter())
             .sink { [weak self] completion in
                 guard let self = self else { return }
@@ -239,7 +238,6 @@ extension HomeViewModelImp {
                 key: GlobalConstant.apiKey
             )
 
-            output.send(.showLoading(true, "Loading more..."))
             service.getVideos(parameter.generateParameter())
                 .sink { [weak self] completion in
                     guard let self = self else { return }

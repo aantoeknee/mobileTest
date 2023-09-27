@@ -97,7 +97,7 @@ extension DetailViewModelImp {
             videoId: model.id,
             key: GlobalConstant.apiKey
         )
-        output.send(.showLoading(true, "Loading more..."))
+
         service.getComments(parameter.generateParameter())
             .sink { [weak self] completion in
                 guard let self = self else { return }
