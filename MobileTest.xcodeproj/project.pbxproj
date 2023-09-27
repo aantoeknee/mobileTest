@@ -20,7 +20,7 @@
 		ABC079FE2AC32595008D4001 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC079FC2AC32595008D4001 /* HomeTableViewCell.swift */; };
 		ABC079FF2AC32595008D4001 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC079FD2AC32595008D4001 /* HomeTableViewCell.xib */; };
 		ABC07A022AC32AF8008D4001 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A012AC32AF8008D4001 /* HomeModel.swift */; };
-		ABC07A062AC32B93008D4001 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A052AC32B93008D4001 /* ResponseModel.swift */; };
+		ABC07A062AC32B93008D4001 /* ResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A052AC32B93008D4001 /* ResponseModels.swift */; };
 		ABC07A0B2AC32C6C008D4001 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A0A2AC32C6C008D4001 /* NetworkManager.swift */; };
 		ABC07A0D2AC32CE5008D4001 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A0C2AC32CE5008D4001 /* Endpoints.swift */; };
 		ABC07A0F2AC32D7A008D4001 /* CustomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A0E2AC32D7A008D4001 /* CustomRequest.swift */; };
@@ -32,6 +32,9 @@
 		ABC07A1C2AC36476008D4001 /* NumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */; };
 		ABC07A1F2AC36505008D4001 /* HomeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A1E2AC36505008D4001 /* HomeCellViewModel.swift */; };
 		ABC07A212AC37E02008D4001 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */; };
+		ABC07A232AC3D892008D4001 /* GlobalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */; };
+		ABC07A252AC3E2BD008D4001 /* EncodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */; };
+		ABC07A272AC3E2CC008D4001 /* RequestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A262AC3E2CC008D4001 /* RequestModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +54,7 @@
 		ABC079FC2AC32595008D4001 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		ABC079FD2AC32595008D4001 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		ABC07A012AC32AF8008D4001 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
-		ABC07A052AC32B93008D4001 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		ABC07A052AC32B93008D4001 /* ResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModels.swift; sourceTree = "<group>"; };
 		ABC07A0A2AC32C6C008D4001 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		ABC07A0C2AC32CE5008D4001 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		ABC07A0E2AC32D7A008D4001 /* CustomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRequest.swift; sourceTree = "<group>"; };
@@ -63,6 +66,9 @@
 		ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberExtensions.swift; sourceTree = "<group>"; };
 		ABC07A1E2AC36505008D4001 /* HomeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellViewModel.swift; sourceTree = "<group>"; };
 		ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
+		ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalExtensions.swift; sourceTree = "<group>"; };
+		ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableExtensions.swift; sourceTree = "<group>"; };
+		ABC07A262AC3E2CC008D4001 /* RequestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModels.swift; sourceTree = "<group>"; };
 		E4F339A9BF71FB3BDA7CDBD4 /* Pods_MobileTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -160,6 +166,8 @@
 				ABC07A192AC33FDB008D4001 /* StringExtensions.swift */,
 				ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */,
 				ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */,
+				ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */,
+				ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -192,7 +200,8 @@
 		ABC07A042AC32B87008D4001 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				ABC07A052AC32B93008D4001 /* ResponseModel.swift */,
+				ABC07A052AC32B93008D4001 /* ResponseModels.swift */,
+				ABC07A262AC3E2CC008D4001 /* RequestModels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,11 +393,14 @@
 				ABC07A132AC32E3C008D4001 /* URLRequestExtensions.swift in Sources */,
 				ABC07A1A2AC33FDB008D4001 /* StringExtensions.swift in Sources */,
 				ABC07A022AC32AF8008D4001 /* HomeModel.swift in Sources */,
+				ABC07A252AC3E2BD008D4001 /* EncodableExtensions.swift in Sources */,
 				ABC07A182AC3366B008D4001 /* HomeService.swift in Sources */,
+				ABC07A272AC3E2CC008D4001 /* RequestModels.swift in Sources */,
+				ABC07A232AC3D892008D4001 /* GlobalExtensions.swift in Sources */,
 				ABC07A162AC33622008D4001 /* HomeViewModel.swift in Sources */,
 				ABC079F62AC321F4008D4001 /* R.generated.swift in Sources */,
 				AB2B36FE2AC31DA10043F0BA /* SceneDelegate.swift in Sources */,
-				ABC07A062AC32B93008D4001 /* ResponseModel.swift in Sources */,
+				ABC07A062AC32B93008D4001 /* ResponseModels.swift in Sources */,
 				ABC079ED2AC31E9E008D4001 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

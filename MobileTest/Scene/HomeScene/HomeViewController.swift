@@ -9,37 +9,33 @@ import Combine
 import UIKit
 import ProgressHUD
 
-class HomeViewController: UIViewController {
-
-    private enum Constants {
-        static let searchFieldKey = "searchField"
-        static let clearButtonKey = "_clearButton"
-    }
-
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var cancelButton: UIButton!
+class HomeViewController: UITableViewController {
 
     private var cancellables: Set<AnyCancellable> = []
     private let input: PassthroughSubject<HomeViewModelImp.Input, Never> = .init()
     private var data: [VideoModel] = []
     private let viewModel: HomeViewModel = HomeViewModelImp()
 
-    private let refreshControl = UIRefreshControl()
+    private var searchBarController: UISearchController = {
+        let sb = UISearchController()
+        sb.searchBar.placeholder = "Enter the movie name"
+        sb.searchBar.searchBarStyle = .minimal
+        sb.searchBar.barStyle = .black
+        return sb
+    }()
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        overrideUserInterfaceStyle = .dark
         setupTapListener()
-        setupSearchBar()
         setupBindings()
         setupTableView()
-    }
-
-    @IBAction func didTapCancel(_ sender: UIButton) {
-        searchBar.text?.removeAll()
-        searchBar.resignFirstResponder()
-        input.send(.fetchData(isForce: true))
+        searchBarController.searchBar.delegate = self
+        navigationItem.searchController = searchBarController
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
 }
 
@@ -52,43 +48,32 @@ extension HomeViewController {
         view.addGestureRecognizer(tapGesture)
     }
 
-    private func setupSearchBar() {
-        searchBar.barTintColor = UIColor.white
-        searchBar.setBackgroundImage(UIImage.init(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
-    }
-
     private func setupBindings() {
         viewModel.bind(input.eraseToAnyPublisher())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] events in
                 guard let self = self else { return }
                 switch events {
-                case .fetchDataSuccess(let data, let isForce):
-                    if isForce {
-                        self.tableView.scrollToTop(animated: false)
-                    }
+                case .fetchDataSuccess(let data):
                     self.data = data
                     self.tableView.reloadData()
-                    self.cancelButton.isHidden = true
-                case .fetchSearchDataSuccess(let data, let isForce):
-                    if isForce {
-                        self.tableView.scrollToTop(animated: false)
-                    }
+                case .fetchSearchDataSuccess(let data):
                     self.data = data
                     self.tableView.reloadData()
-                    self.cancelButton.isHidden = false
                 case .showError(let error):
                     ProgressHUD.showError(error, delay: 3)
-                case .showLoading(let isLoading):
+                case .scrollToTop:
+                    self.tableView.contentOffset = CGPoint(x: 0, y: -100)
+                case .showLoading(let isLoading, let message):
                     if isLoading {
-                        ProgressHUD.show(interaction: false)
+                        ProgressHUD.show(message, interaction: false)
                     } else {
                         ProgressHUD.dismiss()
-                        self.refreshControl.endRefreshing()
+                        self.refreshControl?.endRefreshing()
                     }
                 }
             }.store(in: &cancellables)
-        input.send(.fetchData(isForce: false))
+        input.send(.fetchData(isForce: true))
     }
 
     private func setupTableView() {
@@ -97,8 +82,7 @@ extension HomeViewController {
     }
 
     private func setupRefreshControl() {
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        tableView.addSubview(refreshControl)
+        refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
 
     @objc private func didTap() {
@@ -111,12 +95,12 @@ extension HomeViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension HomeViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: R.reuseIdentifier.homeTableViewCell.identifier
         ) as? HomeTableViewCell else { return UITableViewCell() }
@@ -128,12 +112,14 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+extension HomeViewController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            willDisplay cell: UITableViewCell,
+                            forRowAt indexPath: IndexPath) {
         if indexPath.row == (data.count) - 1 {
             input.send(.loadMore)
         }
@@ -143,12 +129,13 @@ extension HomeViewController: UITableViewDelegate {
 // MARK: - UISearchBarDelegate
 extension HomeViewController: UISearchBarDelegate {
 
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-    }
-
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         input.send(.fetchSearch(searchBar.text ?? .empty))
         searchBar.resignFirstResponder()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        tableView.contentOffset = CGPoint(x: 0, y: -100)
+        input.send(.cancelSearch)
     }
 }

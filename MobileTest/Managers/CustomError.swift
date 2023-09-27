@@ -9,6 +9,7 @@ import Foundation
 
 enum CustomError: Error {
     case unknown
+    case empty
     case errorWithMessage(String)
 }
 
@@ -17,6 +18,8 @@ extension CustomError: LocalizedError {
         switch self {
         case .errorWithMessage(let message):
             return NSLocalizedString(message, comment: "My error")
+        case .empty:
+            return NSLocalizedString("No results found.", comment: "My error")
         case .unknown:
             return NSLocalizedString("Something went wrong", comment: "My error")
         }

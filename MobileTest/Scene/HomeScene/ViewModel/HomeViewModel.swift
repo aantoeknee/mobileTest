@@ -13,15 +13,23 @@ protocol HomeViewModel {
 }
 
 class HomeViewModelImp: HomeViewModel {
+
+    private enum Constants {
+        static let apiKey = "AIzaSyBHghU2FbBKzgjLjMCved-YEuohA7HNyV0"
+        static let maxResults: Int = 10
+    }
+     
     enum Input {
         case fetchData(isForce: Bool)
         case fetchSearch(String)
+        case cancelSearch
         case loadMore
     }
     enum Output {
-        case fetchDataSuccess([VideoModel], isForce: Bool)
-        case fetchSearchDataSuccess([VideoModel], isForce: Bool)
-        case showLoading(Bool)
+        case fetchDataSuccess([VideoModel])
+        case fetchSearchDataSuccess([VideoModel])
+        case scrollToTop
+        case showLoading(Bool, String? = nil)
         case showError(String)
     }
 
@@ -41,13 +49,18 @@ class HomeViewModelImp: HomeViewModel {
         input.sink { [weak self] event in
             guard let self = self else { return }
             switch event {
-            case .fetchData(let showLoader):
-                self.getMostPopular(showLoader)
+            case .fetchData(let isForce):
+                if self.isSearchState {
+                    self.handleSearch()
+                } else {
+                    self.getMostPopular(isForce)
+                }
             case .fetchSearch(let keyword):
-                self.videoModels.removeAll()
                 self.keyword = keyword
-                self.isSearchState = true
-                self.getSearch(keyword: keyword)
+                self.handleSearch()
+            case .cancelSearch:
+                self.isSearchState = false
+                self.getMostPopular(true)
             case .loadMore:
                 self.loadMore()
             }
@@ -60,21 +73,28 @@ class HomeViewModelImp: HomeViewModel {
 // MARK: - Private Functions
 extension HomeViewModelImp {
 
+    private func handleSearch() {
+        self.videoModels.removeAll()
+        self.isSearchState = true
+        self.getSearch(keyword: self.keyword)
+    }
+
     private func getMostPopular(_ isForce: Bool = false) {
-        let parameter: RequestParameter = [
-            "part": "snippet%2Cstatistics",
-            "chart": "mostPopular",
-            "regionCode": "PH",
-            "maxResults": 5,
-            "type": "video",
-            "key": HomeServiceImp.Constants.apiKey
-        ]
+
+        let requestParam = RequestModel(
+            part: "snippet%2Cstatistics",
+            chart: "mostPopular",
+            regionCode: "PH",
+            maxResults: Constants.maxResults,
+            type: "video",
+            key: Constants.apiKey
+        )
         if isForce {
-            self.videoModels.removeAll()
-            self.isSearchState = false
+            videoModels.removeAll()
+            isSearchState = false
         }
         output.send(.showLoading(!isForce))
-        service.getVideos(parameter)
+        service.getVideos(requestParam.generateParameter())
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {
@@ -84,20 +104,20 @@ extension HomeViewModelImp {
                 }
             } receiveValue: { data in
                 self.currentPageToken = data.first?.pageToken ?? .empty
-                self.retrieveChannelInfo(data, isForce: isForce)
+                self.retrieveChannelInfo(data)
             }.store(in: &cancellables)
     }
 
-    private func retrieveChannelInfo(_ videoModels: [VideoModel], isForce: Bool) {
+    private func retrieveChannelInfo(_ videoModels: [VideoModel]) {
         let group = DispatchGroup()
         videoModels.forEach { videoModel in
             group.enter()
-            let channelParameter: RequestParameter = [
-                "part": "snippet",
-                "id": videoModel.channelId,
-                "key": HomeServiceImp.Constants.apiKey
-            ]
-            service.getChannels(channelParameter)
+            let requestParam = RequestModel(
+                id: videoModel.channelId,
+                part: "snippet",
+                key: Constants.apiKey
+            )
+            service.getChannels(requestParam.generateParameter())
                 .sink { [weak self] completion in
                     guard let self = self else { return }
                     self.output.send(.showLoading(false))
@@ -114,22 +134,28 @@ extension HomeViewModelImp {
                 }.store(in: &cancellables)
         }
         group.notify(queue: .main) {
-            self.output.send(.fetchDataSuccess(self.videoModels, isForce: isForce))
+            self.output.send(.fetchDataSuccess(self.videoModels))
         }
     }
 
     private func getSearch(keyword: String, pageToken: String = .empty) {
-        let parameter: RequestParameter = [
-            "part": "snippet",
-            "regionCode": "PH",
-            "q": keyword,
-            "maxResults": 5,
-            "type": "video",
-            "pageToken": pageToken,
-            "key": HomeServiceImp.Constants.apiKey
-        ]
-        output.send(.showLoading(true))
-        service.searchVideos(parameter)
+        let requestParam = RequestModel(
+            part: "snippet",
+            regionCode: "PH",
+            q: keyword,
+            maxResults: Constants.maxResults,
+            type: "video",
+            pageToken: pageToken,
+            key: Constants.apiKey
+        )
+
+        if pageToken.isEmpty {
+            self.output.send(.scrollToTop)
+            output.send(.showLoading(true))
+        } else {
+            output.send(.showLoading(true, "Loading more..."))
+        }
+        service.searchVideos(requestParam.generateParameter())
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {
@@ -139,34 +165,34 @@ extension HomeViewModelImp {
                 }
             } receiveValue: { data in
                 self.currentPageToken = data.first?.pageToken ?? .empty
-                self.retrieveStatistics(videoModels: data, isForce: pageToken.isEmpty)
+                self.retrieveStatistics(videoModels: data)
             }.store(in: &cancellables)
     }
 
-    private func retrieveStatistics(videoModels: [VideoModel], isForce: Bool) {
+    private func retrieveStatistics(videoModels: [VideoModel]) {
         let group = DispatchGroup()
 
         videoModels.forEach {
             group.enter()
-            let parameter: RequestParameter = [
-                "part": "snippet%2Cstatistics",
-                "id": $0.id ?? .empty,
-                "key": HomeServiceImp.Constants.apiKey
-            ]
 
-            let channelParameter: RequestParameter = [
-                "part": "snippet",
-                "id": $0.channelId,
-                "key": HomeServiceImp.Constants.apiKey
-            ]
+            let videoParameter = RequestModel(
+                id: $0.id ?? .empty,
+                part: "snippet%2Cstatistics",
+                key: Constants.apiKey
+            )
 
-            let getVideoPublisher = service.getVideos(parameter).eraseToAnyPublisher()
-            let getChannelPublisher = service.getChannels(channelParameter).eraseToAnyPublisher()
+            let channelParameter = RequestModel(
+                id: $0.channelId,
+                part: "snippet",
+                key: Constants.apiKey
+            )
+
+            let getVideoPublisher = service.getVideos(videoParameter.generateParameter()).eraseToAnyPublisher()
+            let getChannelPublisher = service.getChannels(channelParameter.generateParameter()).eraseToAnyPublisher()
 
             Publishers.Zip(getVideoPublisher, getChannelPublisher)
                 .sink { [weak self] completion in
                     guard let self = self else { return }
-                    self.output.send(.showLoading(false))
                     group.leave()
                     switch completion {
                     case .finished: break
@@ -186,7 +212,8 @@ extension HomeViewModelImp {
                 }.store(in: &cancellables)
         }
         group.notify(queue: .main) {
-            self.output.send(.fetchSearchDataSuccess(self.videoModels, isForce: isForce))
+            self.output.send(.showLoading(false))
+            self.output.send(.fetchSearchDataSuccess(self.videoModels))
         }
     }
 
@@ -198,12 +225,12 @@ extension HomeViewModelImp {
                 "part": "snippet%2Cstatistics",
                 "chart": "mostPopular",
                 "regionCode": "PH",
-                "maxResults": 5,
+                "maxResults": Constants.maxResults,
                 "type": "video",
                 "pageToken": currentPageToken,
-                "key": HomeServiceImp.Constants.apiKey
+                "key": Constants.apiKey
             ]
-            output.send(.showLoading(true))
+            output.send(.showLoading(true, "Loading more..."))
             service.getVideos(parameter)
                 .sink { [weak self] completion in
                     guard let self = self else { return }
@@ -214,7 +241,7 @@ extension HomeViewModelImp {
                     }
                 } receiveValue: { data in
                     self.currentPageToken = data.first?.pageToken ?? .empty
-                    self.retrieveChannelInfo(data, isForce: false)
+                    self.retrieveChannelInfo(data)
                 }.store(in: &cancellables)
         }
     }

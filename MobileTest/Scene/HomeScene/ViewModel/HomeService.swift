@@ -17,10 +17,6 @@ protocol HomeService {
 
 class HomeServiceImp: HomeService {
 
-    enum Constants {
-        static let apiKey = "AIzaSyDdY5eQGQGZg6EZ8RkD-IaKaYLaRIBvrOc"
-    }
-
     private var cancellables: Set<AnyCancellable> = []
 
     func getVideos(_ parameter: RequestParameter) -> Future<[VideoModel], Error> {
@@ -61,7 +57,10 @@ class HomeServiceImp: HomeService {
                         promise(.failure(error))
                     }
                 } receiveValue: { response in
-                    guard let data = response.data else { return }
+                    guard let data = response.data, !data.isEmpty else {
+                        promise(.failure(CustomError.empty))
+                        return
+                    }
                     let videos = data.map {
                         var data = $0.data
                         data.viewCount = $0.statistics?.viewCount
