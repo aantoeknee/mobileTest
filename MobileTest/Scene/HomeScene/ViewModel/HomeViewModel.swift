@@ -9,7 +9,9 @@ import Combine
 import Foundation
 
 protocol HomeViewModel {
-    func bind(_ input: AnyPublisher<HomeViewModelImp.Input, Never>) -> AnyPublisher<HomeViewModelImp.Output, Never>
+    func bind(
+        _ input: AnyPublisher<HomeViewModelImp.Input, Never>
+    ) -> AnyPublisher<HomeViewModelImp.Output, Never>
 }
 
 class HomeViewModelImp: HomeViewModel {
@@ -48,7 +50,10 @@ class HomeViewModelImp: HomeViewModel {
         self.coordinator = coordinator
     }
 
-    func bind(_ input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
+    func bind(
+        _ input: AnyPublisher<Input, Never>
+    ) -> AnyPublisher<Output, Never> {
+
         input.sink { [weak self] event in
             guard let self = self else { return }
             switch event {
@@ -160,7 +165,7 @@ extension HomeViewModelImp {
             self.output.send(.scrollToTop)
             output.send(.showLoading(true))
         }
-        
+
         service.searchVideos(requestParam.generateParameter())
             .sink { [weak self] completion in
                 guard let self = self else { return }
@@ -193,8 +198,13 @@ extension HomeViewModelImp {
                 key: GlobalConstant.apiKey
             )
 
-            let getVideoPublisher = service.getVideos(videoParameter.generateParameter()).eraseToAnyPublisher()
-            let getChannelPublisher = service.getChannels(channelParameter.generateParameter()).eraseToAnyPublisher()
+            let getVideoPublisher = service.getVideos(
+                videoParameter.generateParameter()
+            ).eraseToAnyPublisher()
+
+            let getChannelPublisher = service.getChannels(
+                channelParameter.generateParameter()
+            ).eraseToAnyPublisher()
 
             Publishers.Zip(getVideoPublisher, getChannelPublisher)
                 .sink { [weak self] completion in

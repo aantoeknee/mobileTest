@@ -19,7 +19,6 @@
 		ABC079FA2AC3231C008D4001 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC079F92AC3231C008D4001 /* HomeViewController.swift */; };
 		ABC079FE2AC32595008D4001 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC079FC2AC32595008D4001 /* HomeTableViewCell.swift */; };
 		ABC079FF2AC32595008D4001 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC079FD2AC32595008D4001 /* HomeTableViewCell.xib */; };
-		ABC07A022AC32AF8008D4001 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A012AC32AF8008D4001 /* HomeModel.swift */; };
 		ABC07A062AC32B93008D4001 /* ResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A052AC32B93008D4001 /* ResponseModels.swift */; };
 		ABC07A0B2AC32C6C008D4001 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A0A2AC32C6C008D4001 /* NetworkManager.swift */; };
 		ABC07A0D2AC32CE5008D4001 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A0C2AC32CE5008D4001 /* Endpoints.swift */; };
@@ -63,7 +62,6 @@
 		ABC079F92AC3231C008D4001 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ABC079FC2AC32595008D4001 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		ABC079FD2AC32595008D4001 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
-		ABC07A012AC32AF8008D4001 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		ABC07A052AC32B93008D4001 /* ResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModels.swift; sourceTree = "<group>"; };
 		ABC07A0A2AC32C6C008D4001 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		ABC07A0C2AC32CE5008D4001 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
@@ -134,16 +132,17 @@
 		AB2B36FA2AC31DA10043F0BA /* MobileTest */ = {
 			isa = PBXGroup;
 			children = (
-				ABC07A092AC32C65008D4001 /* Managers */,
-				ABC07A042AC32B87008D4001 /* Model */,
-				ABC079F42AC320DE008D4001 /* Generated */,
-				ABC079F02AC31F9D008D4001 /* Extensions */,
-				ABC079E82AC31E65008D4001 /* Scene */,
+				AB2B37092AC31DA20043F0BA /* Info.plist */,
 				AB2B36FB2AC31DA10043F0BA /* AppDelegate.swift */,
 				AB2B36FD2AC31DA10043F0BA /* SceneDelegate.swift */,
 				AB2B37042AC31DA20043F0BA /* Assets.xcassets */,
 				AB2B37062AC31DA20043F0BA /* LaunchScreen.storyboard */,
-				AB2B37092AC31DA20043F0BA /* Info.plist */,
+				ABC07A3F2AC43404008D4001 /* Common */,
+				ABC079F02AC31F9D008D4001 /* Extensions */,
+				ABC079F42AC320DE008D4001 /* Generated */,
+				ABC07A092AC32C65008D4001 /* Managers */,
+				ABC07A042AC32B87008D4001 /* Model */,
+				ABC079E82AC31E65008D4001 /* Scene */,
 			);
 			path = MobileTest;
 			sourceTree = "<group>";
@@ -160,14 +159,12 @@
 		ABC079E92AC31E6C008D4001 /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
-				ABC07A282AC3EFA6008D4001 /* Coordinator */,
-				ABC07A142AC33618008D4001 /* ViewModel */,
-				ABC07A002AC32AED008D4001 /* Models */,
-				ABC07A1D2AC364EE008D4001 /* CellViewModel */,
-				ABC079FB2AC32581008D4001 /* Cells */,
 				ABC079F72AC32305008D4001 /* Home.storyboard */,
 				ABC079F92AC3231C008D4001 /* HomeViewController.swift */,
-				ABC07A2B2AC3F110008D4001 /* BaseNavigationController.swift */,
+				ABC079FB2AC32581008D4001 /* Cells */,
+				ABC07A1D2AC364EE008D4001 /* CellViewModel */,
+				ABC07A282AC3EFA6008D4001 /* Coordinator */,
+				ABC07A142AC33618008D4001 /* ViewModel */,
 			);
 			path = HomeScene;
 			sourceTree = "<group>";
@@ -175,10 +172,10 @@
 		ABC079EB2AC31E7A008D4001 /* DetailScene */ = {
 			isa = PBXGroup;
 			children = (
+				ABC079EE2AC31EA7008D4001 /* Detail.storyboard */,
+				ABC079EC2AC31E9E008D4001 /* DetailViewController.swift */,
 				ABC07A342AC4061F008D4001 /* Cells */,
 				ABC07A312AC402BD008D4001 /* ViewModel */,
-				ABC079EC2AC31E9E008D4001 /* DetailViewController.swift */,
-				ABC079EE2AC31EA7008D4001 /* Detail.storyboard */,
 			);
 			path = DetailScene;
 			sourceTree = "<group>";
@@ -193,7 +190,6 @@
 				ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */,
 				ABC07A2F2AC3F5E8008D4001 /* UIViewControllerExtensions.swift */,
 				ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */,
-				ABC07A3D2AC42BD6008D4001 /* Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -213,14 +209,6 @@
 				ABC079FD2AC32595008D4001 /* HomeTableViewCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		ABC07A002AC32AED008D4001 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				ABC07A012AC32AF8008D4001 /* HomeModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		ABC07A042AC32B87008D4001 /* Model */ = {
@@ -286,6 +274,15 @@
 				ABC07A3B2AC4243F008D4001 /* CommentHeaderView.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		ABC07A3F2AC43404008D4001 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				ABC07A2B2AC3F110008D4001 /* BaseNavigationController.swift */,
+				ABC07A3D2AC42BD6008D4001 /* Constants.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		C2506D2CF21503362E976900 /* Frameworks */ = {
@@ -453,7 +450,6 @@
 				ABC07A332AC402CB008D4001 /* DetailService.swift in Sources */,
 				ABC07A1A2AC33FDB008D4001 /* StringExtensions.swift in Sources */,
 				ABC07A2E2AC3F3D9008D4001 /* DetailViewModel.swift in Sources */,
-				ABC07A022AC32AF8008D4001 /* HomeModel.swift in Sources */,
 				ABC07A252AC3E2BD008D4001 /* EncodableExtensions.swift in Sources */,
 				ABC07A302AC3F5E8008D4001 /* UIViewControllerExtensions.swift in Sources */,
 				ABC07A182AC3366B008D4001 /* HomeService.swift in Sources */,

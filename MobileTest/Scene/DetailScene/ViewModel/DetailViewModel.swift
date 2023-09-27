@@ -9,7 +9,9 @@ import Combine
 import Foundation
 
 protocol DetailViewModel {
-    func bind(_ input: AnyPublisher<DetailViewModelImp.Input, Never>) -> AnyPublisher<DetailViewModelImp.Output, Never>
+    func bind(
+        _ input: AnyPublisher<DetailViewModelImp.Input, Never>
+    ) -> AnyPublisher<DetailViewModelImp.Output, Never>
 }
 
 

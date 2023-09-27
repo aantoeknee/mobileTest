@@ -12,6 +12,7 @@ import UIKit
 typealias RequestParameter = [String: Any]?
 
 class NetworkManager {
+    
     private enum Constants {
         static let defaultErrorMessage = "Something Went Wrong"
     }
@@ -19,17 +20,22 @@ class NetworkManager {
     private let successCodes = [200, 201, 202, 203]
     private var cancellables: Set<AnyCancellable> = []
 
-    func processData<T: Decodable>(method: RequestMethod = .get,
-                                   body: [String: Any] = [:],
-                                   endpoint: Endpoint,
-                                   queryParameter: [String: Any]? = [:],
-                                   type: T.Type) -> Future<T, Error> {
+    func processData<T: Decodable>(
+        method: RequestMethod = .get,
+        body: [String: Any] = [:],
+        endpoint: Endpoint,
+        queryParameter: [String: Any]? = [:],
+        type: T.Type) -> Future<T, Error> {
+
         return Future<T, Error> { [weak self] promise in
             guard let self = self,
-                  let request = CustomRequest(endpoint: endpoint,
-                                              method: method,
-                                              queryParameter: queryParameter ?? [:],
-                                              body: body).urlRequest else {
+                  let request = CustomRequest(
+                    endpoint: endpoint,
+                    method: method,
+                    queryParameter: queryParameter ?? [:],
+                    body: body
+                  ).urlRequest else {
+
                 return promise(.failure(URLError(.badURL)))
             }
 

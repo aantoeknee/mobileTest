@@ -9,19 +9,24 @@ import Foundation
 import Combine
 
 protocol DetailService {
-    func getComments(_ parameter: RequestParameter) -> Future<[CommentModel], Error>
+    func getComments(
+        _ parameter: RequestParameter
+    ) -> Future<[CommentModel], Error>
 }
 
 class DetailServiceImp: DetailService {
     private var cancellables: Set<AnyCancellable> = []
 
-    func getComments(_ parameter: RequestParameter) -> Future<[CommentModel], Error> {
-        return Future<[CommentModel], Error> { promise in
-            NetworkManager.shared.processData(endpoint: .getComments,
-                                              queryParameter: parameter,
-                                              type: ResponseModel<[CommentResponseModel]>.self)
+    func getComments(
+        _ parameter: RequestParameter
+    ) -> Future<[CommentModel], Error> {
 
-            .sink { completion in
+        return Future<[CommentModel], Error> { promise in
+            NetworkManager.shared.processData(
+                endpoint: .getComments,
+                queryParameter: parameter,
+                type: ResponseModel<[CommentResponseModel]>.self
+            ).sink { completion in
                 switch completion {
                 case .finished: break
                 case .failure(let error):

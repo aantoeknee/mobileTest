@@ -32,19 +32,26 @@ class HomeCellViewModelImp: HomeCellViewModel {
     }
 
     var viewCount: String? {
-        guard let formattedString = Int(model?.viewCount ?? .empty)?.getFormattedString("views") else { return .empty }
+        guard let formattedString = Int(
+            model?.viewCount ?? .empty
+        )?.getFormattedString("views") else {
+            return .empty
+        }
+
         return formattedString
     }
 
     var thumbnail: URL? {
-        guard let thumbnail = model?.thumbnails.high?.url, let url = URL(string: thumbnail) else {
+        guard let thumbnail = model?.thumbnails.high?.url,
+              let url = URL(string: thumbnail) else {
             return nil
         }
         return url
     }
 
     var channelIcon: URL? {
-        guard let channelIcon = model?.channelIcon, let url = URL(string: channelIcon) else {
+        guard let channelIcon = model?.channelIcon,
+              let url = URL(string: channelIcon) else {
             return nil
         }
         return url

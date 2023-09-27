@@ -9,6 +9,6 @@ import Foundation
 import UIKit
 
 class CommentHeaderView: UITableViewHeaderFooterView {
+    
     static let cellIdentifier = String(describing: CommentHeaderView.self)
-
 }

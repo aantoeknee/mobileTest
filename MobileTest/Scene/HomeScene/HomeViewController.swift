@@ -11,6 +11,10 @@ import ProgressHUD
 
 class HomeViewController: UITableViewController {
 
+    private enum Constants {
+        static let searchPlaceHolder = "Search EuTube"
+    }
+
     private var cancellables: Set<AnyCancellable> = []
     private let input: PassthroughSubject<HomeViewModelImp.Input, Never> = .init()
     private var data: [VideoModel] = []
@@ -18,7 +22,7 @@ class HomeViewController: UITableViewController {
 
     private var searchBarController: UISearchController = {
         let sb = UISearchController()
-        sb.searchBar.placeholder = "Search EuTube"
+        sb.searchBar.placeholder = Constants.searchPlaceHolder
         sb.searchBar.searchBarStyle = .minimal
         sb.searchBar.barStyle = .black
         return sb
@@ -64,7 +68,7 @@ extension HomeViewController {
                 case .showError(let errorMessage):
                     ProgressHUD.showError(errorMessage, delay: 3)
                 case .scrollToTop:
-                    self.tableView.contentOffset = CGPoint(x: 0, y: -100)
+                    self.tableView.scrollToTop()
                 case .showLoading(let isLoading, let message):
                     self.showLoading(isLoading, message: message)
                     if !isLoading {
@@ -140,7 +144,7 @@ extension HomeViewController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        tableView.contentOffset = CGPoint(x: 0, y: -100)
+        self.tableView.scrollToTop()
         input.send(.cancelSearch)
     }
 }
