@@ -23,6 +23,7 @@ class HomeViewModelImp: HomeViewModel {
         case fetchData(isForce: Bool)
         case fetchSearch(String)
         case cancelSearch
+        case goToDetails(Int)
         case loadMore
     }
     enum Output {
@@ -36,13 +37,16 @@ class HomeViewModelImp: HomeViewModel {
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables: Set<AnyCancellable> = []
     private let service: HomeService
+    private var coordinator: HomeCoordinator
     private var isSearchState: Bool = false
     private var currentPageToken: String = .empty
     private var videoModels: [VideoModel] = []
     private var keyword: String = .empty
 
-    init(service: HomeService = HomeServiceImp()) {
+    init(service: HomeService = HomeServiceImp(),
+         coordinator: HomeCoordinator) {
         self.service = service
+        self.coordinator = coordinator
     }
 
     func bind(_ input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
@@ -61,6 +65,9 @@ class HomeViewModelImp: HomeViewModel {
             case .cancelSearch:
                 self.isSearchState = false
                 self.getMostPopular(true)
+            case .goToDetails(let index):
+                let model = self.videoModels[index]
+                self.coordinator.goToDetails(model)
             case .loadMore:
                 self.loadMore()
             }
@@ -114,7 +121,7 @@ extension HomeViewModelImp {
             group.enter()
             let requestParam = RequestModel(
                 id: videoModel.channelId,
-                part: "snippet",
+                part: "snippet%2Cstatistics",
                 key: Constants.apiKey
             )
             service.getChannels(requestParam.generateParameter())
@@ -130,6 +137,7 @@ extension HomeViewModelImp {
                 } receiveValue: { channels in
                     var tempVideo = videoModel
                     tempVideo.channelIcon = channels.first?.thumbnails?.high?.url
+                    tempVideo.subscribers = channels.first?.statistics?.subscriberCount
                     self.videoModels.append(tempVideo)
                 }.store(in: &cancellables)
         }
@@ -183,7 +191,7 @@ extension HomeViewModelImp {
 
             let channelParameter = RequestModel(
                 id: $0.channelId,
-                part: "snippet",
+                part: "snippet%2Cstatistics",
                 key: Constants.apiKey
             )
 
@@ -206,6 +214,7 @@ extension HomeViewModelImp {
                             channel.id == item.channelId
                         })?.thumbnails?.high {
                             tempVideos[index].channelIcon = icon.url
+                            tempVideos[index].subscribers = channels.first?.statistics?.subscriberCount
                         }
                     }
                     self.videoModels.append(contentsOf: tempVideos)

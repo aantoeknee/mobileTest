@@ -19,21 +19,22 @@ extension Double {
 }
 
 extension Int {
-    var asFormattedString: String {
+
+    func getFormattedString(_ suffix: String) -> String {
         let num = abs(Double(self))
         let sign = self < 0 ? "-" : ""
 
         switch num {
         case 1_000_000_000...:
-            return "\(sign)\((num / 1_000_000_000).reduceScale(to: 1))B"
+            return "\(sign)\((num / 1_000_000_000).reduceScale(to: 1))B \(suffix)"
         case 1_000_000...:
-            return "\(sign)\((num / 1_000_000).reduceScale(to: 1))M"
+            return "\(sign)\((num / 1_000_000).reduceScale(to: 1))M \(suffix)"
         case 1_000...:
-            return "\(sign)\((num / 1_000).reduceScale(to: 1))K"
+            return "\(sign)\((num / 1_000).reduceScale(to: 1))K \(suffix)"
         case 0...:
-            return "\(self)"
+            return "\(self) \(suffix)"
         default:
-            return "\(sign)\(self)"
+            return "\(sign)\(self) \(suffix)"
         }
     }
 }

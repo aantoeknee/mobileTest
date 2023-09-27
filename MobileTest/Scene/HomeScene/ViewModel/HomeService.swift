@@ -89,6 +89,7 @@ class HomeServiceImp: HomeService {
                     let channels = data.map {
                         var data = $0.data
                         data.id = $0.id
+                        data.statistics = $0.statistics
                         return data
                     }
                     promise(.success(channels))

@@ -11,6 +11,7 @@ enum Endpoint {
     case searchVideos
     case getMostPopular
     case getChannels
+    case getComments
 
     var urlString: String {
         switch self {
@@ -20,6 +21,8 @@ enum Endpoint {
             return "https://youtube.googleapis.com/youtube/v3/videos"
         case .getChannels:
             return "https://youtube.googleapis.com/youtube/v3/channels"
+        case .getComments:
+            return "https://youtube.googleapis.com/youtube/v3/commentThreads"
         }
     }
 }

@@ -35,6 +35,15 @@
 		ABC07A232AC3D892008D4001 /* GlobalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */; };
 		ABC07A252AC3E2BD008D4001 /* EncodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */; };
 		ABC07A272AC3E2CC008D4001 /* RequestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A262AC3E2CC008D4001 /* RequestModels.swift */; };
+		ABC07A2A2AC3EFAD008D4001 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A292AC3EFAD008D4001 /* HomeCoordinator.swift */; };
+		ABC07A2C2AC3F110008D4001 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A2B2AC3F110008D4001 /* BaseNavigationController.swift */; };
+		ABC07A2E2AC3F3D9008D4001 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A2D2AC3F3D9008D4001 /* DetailViewModel.swift */; };
+		ABC07A302AC3F5E8008D4001 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A2F2AC3F5E8008D4001 /* UIViewControllerExtensions.swift */; };
+		ABC07A332AC402CB008D4001 /* DetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A322AC402CB008D4001 /* DetailService.swift */; };
+		ABC07A372AC40642008D4001 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A352AC40642008D4001 /* CommentCell.swift */; };
+		ABC07A382AC40642008D4001 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC07A362AC40642008D4001 /* CommentCell.xib */; };
+		ABC07A3A2AC42411008D4001 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC07A392AC42410008D4001 /* CommentHeaderView.swift */; };
+		ABC07A3C2AC4243F008D4001 /* CommentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC07A3B2AC4243F008D4001 /* CommentHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +78,15 @@
 		ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalExtensions.swift; sourceTree = "<group>"; };
 		ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableExtensions.swift; sourceTree = "<group>"; };
 		ABC07A262AC3E2CC008D4001 /* RequestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModels.swift; sourceTree = "<group>"; };
+		ABC07A292AC3EFAD008D4001 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		ABC07A2B2AC3F110008D4001 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		ABC07A2D2AC3F3D9008D4001 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		ABC07A2F2AC3F5E8008D4001 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		ABC07A322AC402CB008D4001 /* DetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailService.swift; sourceTree = "<group>"; };
+		ABC07A352AC40642008D4001 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		ABC07A362AC40642008D4001 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
+		ABC07A392AC42410008D4001 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
+		ABC07A3B2AC4243F008D4001 /* CommentHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentHeaderView.xib; sourceTree = "<group>"; };
 		E4F339A9BF71FB3BDA7CDBD4 /* Pods_MobileTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -140,12 +158,14 @@
 		ABC079E92AC31E6C008D4001 /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
+				ABC07A282AC3EFA6008D4001 /* Coordinator */,
 				ABC07A142AC33618008D4001 /* ViewModel */,
 				ABC07A002AC32AED008D4001 /* Models */,
 				ABC07A1D2AC364EE008D4001 /* CellViewModel */,
 				ABC079FB2AC32581008D4001 /* Cells */,
 				ABC079F72AC32305008D4001 /* Home.storyboard */,
 				ABC079F92AC3231C008D4001 /* HomeViewController.swift */,
+				ABC07A2B2AC3F110008D4001 /* BaseNavigationController.swift */,
 			);
 			path = HomeScene;
 			sourceTree = "<group>";
@@ -153,6 +173,8 @@
 		ABC079EB2AC31E7A008D4001 /* DetailScene */ = {
 			isa = PBXGroup;
 			children = (
+				ABC07A342AC4061F008D4001 /* Cells */,
+				ABC07A312AC402BD008D4001 /* ViewModel */,
 				ABC079EC2AC31E9E008D4001 /* DetailViewController.swift */,
 				ABC079EE2AC31EA7008D4001 /* Detail.storyboard */,
 			);
@@ -167,6 +189,7 @@
 				ABC07A202AC37E02008D4001 /* UITableViewExtensions.swift */,
 				ABC07A1B2AC36476008D4001 /* NumberExtensions.swift */,
 				ABC07A222AC3D892008D4001 /* GlobalExtensions.swift */,
+				ABC07A2F2AC3F5E8008D4001 /* UIViewControllerExtensions.swift */,
 				ABC07A242AC3E2BD008D4001 /* EncodableExtensions.swift */,
 			);
 			path = Extensions;
@@ -232,6 +255,34 @@
 				ABC07A1E2AC36505008D4001 /* HomeCellViewModel.swift */,
 			);
 			path = CellViewModel;
+			sourceTree = "<group>";
+		};
+		ABC07A282AC3EFA6008D4001 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				ABC07A292AC3EFAD008D4001 /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		ABC07A312AC402BD008D4001 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ABC07A2D2AC3F3D9008D4001 /* DetailViewModel.swift */,
+				ABC07A322AC402CB008D4001 /* DetailService.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		ABC07A342AC4061F008D4001 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				ABC07A352AC40642008D4001 /* CommentCell.swift */,
+				ABC07A362AC40642008D4001 /* CommentCell.xib */,
+				ABC07A392AC42410008D4001 /* CommentHeaderView.swift */,
+				ABC07A3B2AC4243F008D4001 /* CommentHeaderView.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		C2506D2CF21503362E976900 /* Frameworks */ = {
@@ -306,6 +357,8 @@
 				AB2B37082AC31DA20043F0BA /* LaunchScreen.storyboard in Resources */,
 				ABC079F82AC32305008D4001 /* Home.storyboard in Resources */,
 				AB2B37052AC31DA20043F0BA /* Assets.xcassets in Resources */,
+				ABC07A382AC40642008D4001 /* CommentCell.xib in Resources */,
+				ABC07A3C2AC4243F008D4001 /* CommentHeaderView.xib in Resources */,
 				ABC079FF2AC32595008D4001 /* HomeTableViewCell.xib in Resources */,
 				ABC079EF2AC31EA7008D4001 /* Detail.storyboard in Resources */,
 			);
@@ -388,20 +441,27 @@
 				ABC07A212AC37E02008D4001 /* UITableViewExtensions.swift in Sources */,
 				ABC07A0D2AC32CE5008D4001 /* Endpoints.swift in Sources */,
 				ABC07A1C2AC36476008D4001 /* NumberExtensions.swift in Sources */,
+				ABC07A2C2AC3F110008D4001 /* BaseNavigationController.swift in Sources */,
 				ABC07A112AC32DF5008D4001 /* CustomError.swift in Sources */,
 				ABC07A0F2AC32D7A008D4001 /* CustomRequest.swift in Sources */,
 				ABC07A132AC32E3C008D4001 /* URLRequestExtensions.swift in Sources */,
+				ABC07A3A2AC42411008D4001 /* CommentHeaderView.swift in Sources */,
+				ABC07A332AC402CB008D4001 /* DetailService.swift in Sources */,
 				ABC07A1A2AC33FDB008D4001 /* StringExtensions.swift in Sources */,
+				ABC07A2E2AC3F3D9008D4001 /* DetailViewModel.swift in Sources */,
 				ABC07A022AC32AF8008D4001 /* HomeModel.swift in Sources */,
 				ABC07A252AC3E2BD008D4001 /* EncodableExtensions.swift in Sources */,
+				ABC07A302AC3F5E8008D4001 /* UIViewControllerExtensions.swift in Sources */,
 				ABC07A182AC3366B008D4001 /* HomeService.swift in Sources */,
 				ABC07A272AC3E2CC008D4001 /* RequestModels.swift in Sources */,
+				ABC07A2A2AC3EFAD008D4001 /* HomeCoordinator.swift in Sources */,
 				ABC07A232AC3D892008D4001 /* GlobalExtensions.swift in Sources */,
 				ABC07A162AC33622008D4001 /* HomeViewModel.swift in Sources */,
 				ABC079F62AC321F4008D4001 /* R.generated.swift in Sources */,
 				AB2B36FE2AC31DA10043F0BA /* SceneDelegate.swift in Sources */,
 				ABC07A062AC32B93008D4001 /* ResponseModels.swift in Sources */,
 				ABC079ED2AC31E9E008D4001 /* DetailViewController.swift in Sources */,
+				ABC07A372AC40642008D4001 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

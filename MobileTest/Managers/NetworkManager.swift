@@ -33,7 +33,7 @@ class NetworkManager {
                 return promise(.failure(URLError(.badURL)))
             }
 
-            if endpoint == .getMostPopular {
+            if endpoint == .getChannels {
                 print(request.cURL())
             }
 

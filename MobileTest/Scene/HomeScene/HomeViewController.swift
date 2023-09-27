@@ -14,11 +14,11 @@ class HomeViewController: UITableViewController {
     private var cancellables: Set<AnyCancellable> = []
     private let input: PassthroughSubject<HomeViewModelImp.Input, Never> = .init()
     private var data: [VideoModel] = []
-    private let viewModel: HomeViewModel = HomeViewModelImp()
+    var viewModel: HomeViewModel?
 
     private var searchBarController: UISearchController = {
         let sb = UISearchController()
-        sb.searchBar.placeholder = "Enter the movie name"
+        sb.searchBar.placeholder = "Search EuTube"
         sb.searchBar.searchBarStyle = .minimal
         sb.searchBar.barStyle = .black
         return sb
@@ -44,12 +44,13 @@ extension HomeViewController {
 
     private func setupTapListener() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        tapGesture.cancelsTouchesInView = false
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tapGesture)
     }
 
     private func setupBindings() {
-        viewModel.bind(input.eraseToAnyPublisher())
+        viewModel?.bind(input.eraseToAnyPublisher())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] events in
                 guard let self = self else { return }
@@ -60,15 +61,13 @@ extension HomeViewController {
                 case .fetchSearchDataSuccess(let data):
                     self.data = data
                     self.tableView.reloadData()
-                case .showError(let error):
-                    ProgressHUD.showError(error, delay: 3)
+                case .showError(let errorMessage):
+                    ProgressHUD.showError(errorMessage, delay: 3)
                 case .scrollToTop:
                     self.tableView.contentOffset = CGPoint(x: 0, y: -100)
                 case .showLoading(let isLoading, let message):
-                    if isLoading {
-                        ProgressHUD.show(message, interaction: false)
-                    } else {
-                        ProgressHUD.dismiss()
+                    self.showLoading(isLoading, message: message)
+                    if !isLoading {
                         self.refreshControl?.endRefreshing()
                     }
                 }
@@ -113,7 +112,8 @@ extension HomeViewController {
 
 // MARK: - UITableViewDelegate
 extension HomeViewController {
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView,
+                            heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 
@@ -123,6 +123,11 @@ extension HomeViewController {
         if indexPath.row == (data.count) - 1 {
             input.send(.loadMore)
         }
+    }
+
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        input.send(.goToDetails(indexPath.row))
     }
 }
 

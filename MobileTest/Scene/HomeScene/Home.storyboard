@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="1565.6488549618321" y="-679.57746478873241"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Base Navigation Controller-->
         <scene sceneID="oZb-m9-XkL">
             <objects>
-                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="rba-fc-AUX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BaseNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="rba-fc-AUX" customClass="BaseNavigationController" customModule="MobileTest" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="rzS-Bb-cdF">
                         <rect key="frame" x="0.0" y="59" width="393" height="96"/>

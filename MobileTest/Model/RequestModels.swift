@@ -16,8 +16,9 @@ struct RequestModel: Encodable {
     var maxResults: Int?
     var type: String?
     var pageToken: String?
-    var key: String?
     var order: String?
+    var videoId: String?
+    var key: String?
 
     func generateParameter() -> [String: Any] {
         return self.dictionary ?? [:]

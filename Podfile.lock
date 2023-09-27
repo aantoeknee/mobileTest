@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.8.0)
   - AlamofireImage (4.3.0):
     - Alamofire (~> 5.8)
+  - Jelly (2.3.0)
   - ProgressHUD (13.7.2)
   - R.swift (7.3.2)
   - Wormholy (1.7.0)
@@ -9,6 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage (~> 4.1)
+  - Jelly (~> 2.3.0)
   - ProgressHUD (~> 13.7.2)
   - R.swift (~> 7.3.2)
   - Wormholy
@@ -18,6 +20,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - Jelly
     - ProgressHUD
     - R.swift
     - Wormholy
@@ -26,11 +29,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   AlamofireImage: 843953fa97bee5f561cf05d83abd759e590b068d
+  Jelly: 5c6315db07d392b178ebf9edf27072a294d4f434
   ProgressHUD: 093d24ca970f191744017bee2649e37d0cd1c5b9
   R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
   youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 1c026137cd23d8f081db2ff1f561f9fb2fad68a2
+PODFILE CHECKSUM: 0adfefa7b059732f1725da212c3592b66125f6c9
 
 COCOAPODS: 1.12.0

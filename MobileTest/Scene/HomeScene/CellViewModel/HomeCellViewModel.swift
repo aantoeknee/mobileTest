@@ -28,12 +28,12 @@ class HomeCellViewModelImp: HomeCellViewModel {
     }
 
     var channel: String? {
-        return model?.channelTitle
+        return model?.channelTitle.truncated(limit: 20)
     }
 
     var viewCount: String? {
-        guard let formattedString = Int(model?.viewCount ?? .empty)?.asFormattedString else { return .empty }
-        return formattedString + " views"
+        guard let formattedString = Int(model?.viewCount ?? .empty)?.getFormattedString("views") else { return .empty }
+        return formattedString
     }
 
     var thumbnail: URL? {
