@@ -15,7 +15,6 @@ protocol HomeViewModel {
 class HomeViewModelImp: HomeViewModel {
 
     private enum Constants {
-        static let apiKey = "AIzaSyBHghU2FbBKzgjLjMCved-YEuohA7HNyV0"
         static let maxResults: Int = 10
     }
      
@@ -94,7 +93,7 @@ extension HomeViewModelImp {
             regionCode: "PH",
             maxResults: Constants.maxResults,
             type: "video",
-            key: Constants.apiKey
+            key: GlobalConstant.apiKey
         )
         if isForce {
             videoModels.removeAll()
@@ -122,7 +121,7 @@ extension HomeViewModelImp {
             let requestParam = RequestModel(
                 id: videoModel.channelId,
                 part: "snippet%2Cstatistics",
-                key: Constants.apiKey
+                key: GlobalConstant.apiKey
             )
             service.getChannels(requestParam.generateParameter())
                 .sink { [weak self] completion in
@@ -154,7 +153,7 @@ extension HomeViewModelImp {
             maxResults: Constants.maxResults,
             type: "video",
             pageToken: pageToken,
-            key: Constants.apiKey
+            key: GlobalConstant.apiKey
         )
 
         if pageToken.isEmpty {
@@ -186,13 +185,13 @@ extension HomeViewModelImp {
             let videoParameter = RequestModel(
                 id: $0.id ?? .empty,
                 part: "snippet%2Cstatistics",
-                key: Constants.apiKey
+                key: GlobalConstant.apiKey
             )
 
             let channelParameter = RequestModel(
                 id: $0.channelId,
                 part: "snippet%2Cstatistics",
-                key: Constants.apiKey
+                key: GlobalConstant.apiKey
             )
 
             let getVideoPublisher = service.getVideos(videoParameter.generateParameter()).eraseToAnyPublisher()
@@ -230,17 +229,18 @@ extension HomeViewModelImp {
         if isSearchState {
             getSearch(keyword: keyword, pageToken: currentPageToken)
         } else {
-            let parameter: RequestParameter = [
-                "part": "snippet%2Cstatistics",
-                "chart": "mostPopular",
-                "regionCode": "PH",
-                "maxResults": Constants.maxResults,
-                "type": "video",
-                "pageToken": currentPageToken,
-                "key": Constants.apiKey
-            ]
+            let parameter = RequestModel(
+                part: "snippet%2Cstatistics",
+                chart: "mostPopular",
+                regionCode: "PH",
+                maxResults: Constants.maxResults,
+                type: "video",
+                pageToken: currentPageToken,
+                key: GlobalConstant.apiKey
+            )
+
             output.send(.showLoading(true, "Loading more..."))
-            service.getVideos(parameter)
+            service.getVideos(parameter.generateParameter())
                 .sink { [weak self] completion in
                     guard let self = self else { return }
                     switch completion {

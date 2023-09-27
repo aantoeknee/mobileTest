@@ -16,7 +16,6 @@ protocol DetailViewModel {
 class DetailViewModelImp: DetailViewModel {
 
     private enum Constants {
-        static let apiKey = "AIzaSyBHghU2FbBKzgjLjMCved-YEuohA7HNyV0"
         static let maxResults: Int = 30
     }
 
@@ -70,7 +69,7 @@ extension DetailViewModelImp {
             part: "snippet",
             maxResults: Constants.maxResults,
             videoId: model.id,
-            key: Constants.apiKey
+            key: GlobalConstant.apiKey
         )
         output.send(.showLoading(true))
         service.getComments(parameter.generateParameter())
@@ -96,7 +95,7 @@ extension DetailViewModelImp {
             maxResults: Constants.maxResults,
             pageToken: currentPageToken,
             videoId: model.id,
-            key: Constants.apiKey
+            key: GlobalConstant.apiKey
         )
         output.send(.showLoading(true, "Loading more..."))
         service.getComments(parameter.generateParameter())
